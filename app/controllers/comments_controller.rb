@@ -12,11 +12,12 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    @post = Post.find(params[:post_id])
+    @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
+      # redirect_to @post 로 바꿔준 이유는 그 글로 돌아가기 위한것임. post컨트롤러의 update액션 참고
+      format.html { redirect_to @post, notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
